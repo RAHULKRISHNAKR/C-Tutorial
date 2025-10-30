@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>C Programming: Functions, Structures, & Pointers | 3-Hour Workshop</title>
+  <title>C Programming: Functions, Structures, & Pointers | Workshop</title>
     <meta name="description" content="Beginner-friendly 3-hour workshop covering Functions, Strings, Structures, and Pointers in C with clear analogies and code examples." />
 
     <!-- Fonts -->
@@ -23,26 +23,28 @@
 
     <header class="site-header">
       <div class="container">
-        <h1 class="title">C Programming Workshop: Modules 3 &amp; 4</h1>
-        <p class="subtitle">A 3-Hour Guide for Beginners (Functions, Strings, Structures, and Pointers)</p>
+        <h1 class="title">C Programming: Modules 3 &amp; 4</h1>
+  <p class="subtitle">A Beginner-Friendly Guide (Functions, Strings, Structures, and Pointers)</p>
       </div>
     </header>
 
     <nav class="toc" aria-label="Workshop navigation">
       <div class="container">
         <ul>
-          <li><a href="#hour-1">Hour 1: Functions &amp; Strings</a></li>
-          <li><a href="#hour-2">Hour 2: Structures</a></li>
-          <li><a href="#hour-3">Hour 3: Pointers</a></li>
+          <li><a href="#hour-1">Functions &amp; Strings</a></li>
+          <li><a href="#hour-2">Structures</a></li>
+          <li><a href="#hour-3">Pointers</a></li>
+          <li><a href="#advanced">Advanced Topics</a></li>
           <li><a href="#conclusion">Summary</a></li>
         </ul>
       </div>
     </nav>
 
     <main id="main" class="container single-column">
+      
       <!-- Hour 1 -->
       <section id="hour-1" class="block">
-        <h2>Hour 1: Functions &amp; Strings (The Organizers)</h2>
+        <h2>Functions &amp; Strings (The Organizers)</h2>
 
         <article class="subblock">
           <h3>Part 1: Functions - The 'Specialist Workers'</h3>
@@ -137,9 +139,9 @@ int main() {
         </article>
       </section>
 
-      <!-- Hour 2 -->
+      <!-- Structures -->
       <section id="hour-2" class="block">
-        <h2>Hour 2: Structures (The 'Data Organizers')</h2>
+        <h2>Structures (The 'Data Organizers')</h2>
 
         <article class="subblock">
           <h3>Part 1: The Problem We Need to Solve</h3>
@@ -227,9 +229,9 @@ printf("The first student is: %s\n", cse_class[0].name);</code></pre>
         </article>
       </section>
 
-      <!-- Hour 3 -->
+      <!-- Pointers -->
       <section id="hour-3" class="block">
-        <h2>Hour 3: Pointers (The 'Most Feared' Topic)</h2>
+        <h2>Pointers (The 'Most Feared' Topic)</h2>
 
         <article class="subblock">
           <h3>Part 1: The Concept - The 'House Address' Analogy</h3>
@@ -303,26 +305,213 @@ printf("New value of x: %d\n", x); // This will print 25!</code></pre>
         </article>
       </section>
 
+      <!-- Advanced Topics -->
+      <section id="advanced" class="block">
+        <h2>Advanced Topics (Module 3 &amp; 4)</h2>
+
+        <article class="subblock">
+          <h3>Recursion</h3>
+          <p>
+            Recursion is when a function calls itself to solve a smaller version of the problem.
+            Every recursive function needs:
+          </p>
+          <ul>
+            <li><strong>Base case</strong>: when to stop.</li>
+            <li><strong>Recursive case</strong>: progress toward the base case.</li>
+          </ul>
+          <div class="code-card">
+            <div class="code-title">Factorial using Recursion</div>
+            <button class="copy-btn" aria-label="Copy code">Copy</button>
+            <pre class="line-numbers"><code class="language-c">#include &lt;stdio.h&gt;
+
+long long fact(int n) {
+  if (n &lt;= 1) return 1;       // base case
+  return (long long)n * fact(n - 1); // recursive case
+}
+
+int main(void) {
+  int n = 5;
+  printf("%d! = %lld\n", n, fact(n));
+  return 0;
+}</code></pre>
+          </div>
+          <div class="callout warning">
+            <div class="callout-title">Watch out</div>
+            <p>Missing a base case or not making progress toward it can cause infinite recursion and stack overflow.</p>
+          </div>
+        </article>
+
+        <article class="subblock">
+          <h3>Macros</h3>
+          <p>
+            Macros are compile-time text substitutions created with <code>#define</code>. They’re handy for constants and small inlined expressions, but be careful about parentheses and side effects.
+          </p>
+          <div class="code-card">
+            <div class="code-title">Constants and Function-like Macros</div>
+            <button class="copy-btn" aria-label="Copy code">Copy</button>
+            <pre class="line-numbers"><code class="language-c">#include &lt;stdio.h&gt;
+
+#define PI 3.14159265
+#define SQUARE(x) ((x) * (x)) // always parenthesize
+
+int main(void) {
+  int a = 5;
+  printf("PI = %.2f\n", PI);
+  printf("SQUARE(a+1) = %d\n", SQUARE(a+1)); // expands to ((a+1)*(a+1))
+  return 0;
+}</code></pre>
+          </div>
+          <div class="callout info">
+            <div class="callout-title">Tip</div>
+            <p>Prefer <code>const</code> variables and <code>static inline</code> functions over complex macros for type safety and debugging.</p>
+          </div>
+        </article>
+
+        <article class="subblock">
+          <h3>Union</h3>
+          <p>
+            A <code>union</code> lets multiple members share the same memory location. Only one member is valid at a time. Size equals the largest member.
+          </p>
+          <div class="code-card">
+            <div class="code-title">Union vs Shared Storage</div>
+            <button class="copy-btn" aria-label="Copy code">Copy</button>
+            <pre class="line-numbers"><code class="language-c">#include &lt;stdio.h&gt;
+
+union Number {
+  int   i;
+  float f;
+};
+
+int main(void) {
+  union Number n;
+  n.i = 42;
+  printf("i = %d\n", n.i);
+  n.f = 3.14f; // now the float view is valid; 'i' is no longer meaningful
+  printf("f = %.2f\n", n.f);
+  printf("sizeof(union Number) = %zu\n", sizeof(n));
+  return 0;
+}</code></pre>
+          </div>
+          <div class="callout warning">
+            <div class="callout-title">Watch out</div>
+            <p>Reading a member different from the one most recently written is undefined behavior in strict C. Use a tag (an enum) to track the active member.</p>
+          </div>
+        </article>
+
+        <article class="subblock">
+          <h3>Pointer to Pointer</h3>
+          <p>
+            A double pointer (<code>T **</code>) stores the address of a pointer. Useful for modifying a pointer inside a function (e.g., <code>char **argv</code>, dynamic 2D arrays).
+          </p>
+          <div class="code-card">
+            <div class="code-title">Changing a Value via <code>int **</code></div>
+            <button class="copy-btn" aria-label="Copy code">Copy</button>
+            <pre class="line-numbers"><code class="language-c">#include &lt;stdio.h&gt;
+
+void set_to_100(int **pp) {
+  **pp = 100; // go to the address stored in *pp and write 100
+}
+
+int main(void) {
+  int x = 5;
+  int *p = &x;
+  int **pp = &p;
+  set_to_100(pp);
+  printf("x = %d\n", x); // 100
+  return 0;
+}</code></pre>
+          </div>
+        </article>
+
+        <article class="subblock">
+          <h3>Array of Pointers</h3>
+          <p>
+            An array can store pointers, e.g., an array of C-strings (<code>char*</code>). This is common for lists of words and tables of function pointers.
+          </p>
+          <div class="code-card">
+            <div class="code-title">Array of C-Strings</div>
+            <button class="copy-btn" aria-label="Copy code">Copy</button>
+            <pre class="line-numbers"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main(void) {
+  const char *fruits[] = {"Apple", "Banana", "Cherry"};
+  size_t n = sizeof(fruits)/sizeof(fruits[0]);
+  for (size_t i = 0; i &lt; n; ++i) {
+    printf("%s\n", fruits[i]);
+  }
+  return 0;
+}</code></pre>
+          </div>
+        </article>
+
+        <article class="subblock">
+          <h3>Pointer to Function</h3>
+          <p>
+            Function pointers hold the address of a function. They’re used for callbacks (e.g., <code>qsort</code>) and strategy selection.
+          </p>
+          <div class="code-card">
+            <div class="code-title">Declaring and Using a Function Pointer</div>
+            <button class="copy-btn" aria-label="Copy code">Copy</button>
+            <pre class="line-numbers"><code class="language-c">#include &lt;stdio.h&gt;
+
+int add(int a, int b) { return a + b; }
+
+int main(void) {
+  int (*op)(int, int) = add; // pointer to function taking (int,int) and returning int
+  int result = op(4, 6);     // call via pointer
+  printf("result = %d\n", result);
+  return 0;
+}</code></pre>
+          </div>
+        </article>
+
+        <article class="subblock">
+          <h3>Dynamic Memory Allocation</h3>
+          <p>
+            Use <code>malloc</code>/<code>calloc</code>/<code>realloc</code> to manage memory at runtime, and always <code>free</code> what you allocate.
+          </p>
+          <div class="code-card">
+            <div class="code-title">malloc, realloc, free</div>
+            <button class="copy-btn" aria-label="Copy code">Copy</button>
+            <pre class="line-numbers"><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(void) {
+  size_t n = 3;
+  int *a = (int*)malloc(n * sizeof(int));
+  if (!a) { perror("malloc"); return 1; }
+
+  for (size_t i = 0; i &lt; n; ++i) a[i] = (int)i + 1; // 1,2,3
+
+  // grow array to 5
+  int *tmp = (int*)realloc(a, 5 * sizeof(int));
+  if (!tmp) { free(a); perror("realloc"); return 1; }
+  a = tmp;
+  a[3] = 4; a[4] = 5;
+
+  for (size_t i = 0; i &lt; 5; ++i) printf("%d ", a[i]);
+  printf("\n");
+
+  free(a);
+  return 0;
+}</code></pre>
+          </div>
+          <div class="callout warning">
+            <div class="callout-title">Watch out</div>
+            <p>Always check for <code>NULL</code> after allocation and avoid memory leaks by calling <code>free</code> exactly once for each successful allocation.</p>
+          </div>
+        </article>
+      </section>
+
       <!-- Conclusion -->
       <section id="conclusion" class="block">
-        <h2>Class Summary &amp; What We Skipped</h2>
-        <div class="callout warning">
-          <div class="callout-title">Topics to AVOID (For Now!)</div>
-          <p>
-            The full syllabus for these modules is 16 hours! We skipped the hardest parts on purpose to build a strong foundation. Do not worry about these advanced topics until you master today's concepts.
-          </p>
-        </div>
-        <ul>
-          <li><strong>Module 3 Skipped:</strong> <code>Recursion</code> (Functions calling themselves), <code>Macros</code></li>
-          <li><strong>Module 4 Skipped:</strong> <code>Union</code>, <code>Pointer to Pointer</code>, <code>Array of Pointers</code>, <code>Pointer to Function</code>, <code>Dynamic Memory Allocation</code> (<code>malloc</code>, <code>free</code>)</li>
-        </ul>
         <p>Congratulations! You now understand the core concepts of C's most powerful features.</p>
       </section>
     </main>
 
     <footer class="site-footer">
       <div class="container">
-        <p>C Programming Workshop - Mar Athanasius College of Engineering</p>
+        <p>ENCIDE MACE</p>
       </div>
     </footer>
 
