@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>C Programming: Functions, Structures, & Pointers | 3-Hour Workshop</title>
+    <meta name="description" content="Beginner-friendly 3-hour workshop covering Functions, Strings, Structures, and Pointers in C with clear analogies and code examples." />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+
+    <!-- Prism for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.css" />
+
+    <!-- Site styles -->
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container">
+        <h1 class="title">C Programming Workshop: Modules 3 &amp; 4</h1>
+        <p class="subtitle">A 3-Hour Guide for Beginners (Functions, Strings, Structures, and Pointers)</p>
+      </div>
+    </header>
+
+    <nav class="toc" aria-label="Workshop navigation">
+      <div class="container">
+        <ul>
+          <li><a href="#hour-1">Hour 1: Functions &amp; Strings</a></li>
+          <li><a href="#hour-2">Hour 2: Structures</a></li>
+          <li><a href="#hour-3">Hour 3: Pointers</a></li>
+          <li><a href="#conclusion">Summary</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main id="main" class="container single-column">
+      <!-- Hour 1 -->
+      <section id="hour-1" class="block">
+        <h2>Hour 1: Functions &amp; Strings (The Organizers)</h2>
+
+        <article class="subblock">
+          <h3>Part 1: Functions - The 'Specialist Workers'</h3>
+
+          <h4>Why Use Functions?</h4>
+          <div class="analogy">
+            <div class="analogy-title">The Manager Analogy</div>
+            <p>
+              Think of your <code>main()</code> function as the 'Manager' of a company. If the manager tries to do all the work (accounting, marketing, sales), the office becomes a mess.
+            </p>
+            <p>
+              A <strong>Function</strong> is a 'Specialist Worker' (like an 'Accountant'). The manager's job is to <strong>call</strong> the specialist to get a specific job done. This keeps the manager's office (<code>main</code>) clean, and you can 'reuse' that specialist many times.
+            </p>
+          </div>
+
+          <h4>The 3 Parts of a Function</h4>
+
+          <div class="code-card">
+            <div class="code-title">1. The Prototype (The Manager's Contact List)</div>
+            <p class="code-desc">Place this at the top of your code. It tells the compiler, "Hey, a specialist named <code>add</code> exists. Trust me."</p>
+            <button class="copy-btn" aria-label="Copy code">Copy</button>
+            <pre class="line-numbers"><code class="language-c">int add(int, int); // Function Prototype</code></pre>
+          </div>
+
+          <div class="code-card">
+            <div class="code-title">2. The Function Call (The Manager's Request)</div>
+            <p class="code-desc">This happens inside <code>main</code>. The manager is 'calling' the specialist for help.</p>
+            <button class="copy-btn" aria-label="Copy code">Copy</button>
+            <pre class="line-numbers"><code class="language-c">// Inside main()...
+int sum = add(5, 3); // Function Call
+printf("The result is: %d\n", sum);</code></pre>
+          </div>
+
+          <div class="code-card">
+            <div class="code-title">3. The Function Definition (The Specialist's Instructions)</div>
+            <p class="code-desc">This is the code <em>inside</em> the function. It's the specialist's 'how-to' manual.</p>
+            <button class="copy-btn" aria-label="Copy code">Copy</button>
+            <pre class="line-numbers"><code class="language-c">// This can go after main()...
+int add(int a, int b) { // Function Definition
+  int result = a + b;
+  return result; // The specialist gives the 'result' back to the manager
+}</code></pre>
+          </div>
+
+          <h4>Key Concept: 'Pass-by-Value'</h4>
+          <p>
+            When you call <code>add(5, 3)</code>, you are giving the function <em>copies</em> of your data. The function can't change your original variables. It's like giving your accountant a <em>photocopy</em> of your documents, not the originals.
+          </p>
+        </article>
+
+        <article class="subblock">
+          <h3>Part 2: Strings - The 'Character Train'</h3>
+
+          <h4>What is a String in C?</h4>
+          <div class="analogy">
+            <div class="analogy-title">The Train Analogy</div>
+            <p>
+              C has no 'string' data type. A string is just an <strong>array of characters</strong> that ends with a special 'end of train' car: the <strong>null terminator</strong> (<code>\0</code>).
+            </p>
+          </div>
+
+          <p>
+            So, the string "HELLO" is stored in memory like this:
+            <code>['H'] ['E'] ['L'] ['L'] ['O'] ['\0']</code>
+          </p>
+
+          <div class="code-card">
+            <div class="code-title">Declaring, Reading, and Printing Strings</div>
+            <button class="copy-btn" aria-label="Copy code">Copy</button>
+            <pre class="line-numbers"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+  // Create a track for a 19-letter train + the end car
+  char name[20];
+
+  printf("Enter your name: ");
+  
+  // No & is needed! The array name 'name' *is* the address.
+  scanf("%s", name);
+
+  printf("Hello, %s!\n", name);
+  return 0;
+}</code></pre>
+          </div>
+
+          <div class="callout info">
+            <div class="callout-title">Note</div>
+            <p>
+              To do complex things like find a string's length (<code>strlen()</code>) or compare two strings (<code>strcmp()</code>), you must <code>#include &lt;string.h&gt;</code>. This gives you more 'specialist workers' for strings.
+            </p>
+          </div>
+        </article>
+      </section>
+
+      <!-- Hour 2 -->
+      <section id="hour-2" class="block">
+        <h2>Hour 2: Structures (The 'Data Organizers')</h2>
+
+        <article class="subblock">
+          <h3>Part 1: The Problem We Need to Solve</h3>
+          <p>
+            How would you store data for a single student? You'd need separate, unconnected variables. This is messy, as all this data belongs <em>together</em>.
+          </p>
+          <div class="code-card">
+            <div class="code-title">The 'Messy' Way</div>
+            <button class="copy-btn" aria-label="Copy code">Copy</button>
+            <pre class="line-numbers"><code class="language-c">int rollNo = 101;
+char name[50] = "Allen";
+float gpa = 8.5;</code></pre>
+          </div>
+        </article>
+
+        <article class="subblock">
+          <h3>Part 2: The Solution - <code>struct</code> (The 'Bento Box')</h3>
+          <h4>Step 1: Create the Blueprint</h4>
+          <div class="analogy">
+            <div class="analogy-title">The Blueprint Analogy</div>
+            <p>
+              A <code>struct</code> is a <strong>blueprint</strong> for your own custom data type. You are telling C: "I'm inventing a new type called <code>Student</code> that holds three different items (an int, a char array, and a float) all in one box."
+            </p>
+          </div>
+          <div class="code-card">
+            <div class="code-title">The <code>struct</code> Blueprint (Goes <em>outside</em> main)</div>
+            <button class="copy-btn" aria-label="Copy code">Copy</button>
+            <pre class="line-numbers"><code class="language-c">struct Student {
+  int rollNo;
+  char name[50];
+  float gpa;
+};</code></pre>
+          </div>
+
+          <h4>Step 2: Use the Blueprint to Create a Variable</h4>
+          <p>Now that you have the blueprint, you can create actual 'bento boxes' from it.</p>
+          <div class="code-card">
+            <div class="code-title">Creating a <code>struct</code> Variable (Goes <em>inside</em> main)</div>
+            <button class="copy-btn" aria-label="Copy code">Copy</button>
+            <pre class="line-numbers"><code class="language-c">struct Student s1; // 's1' is a variable of our new 'Student' type.</code></pre>
+          </div>
+
+          <h4>Step 3: Access the Data with the Dot (<code>.</code>) Operator</h4>
+          <p>The dot is how you 'look inside' a specific compartment of the bento box.</p>
+          <div class="code-card">
+            <div class="code-title">Accessing Members</div>
+            <button class="copy-btn" aria-label="Copy code">Copy</button>
+            <pre class="line-numbers"><code class="language-c">#include &lt;string.h&gt; // We need this for strcpy!
+
+// ... (struct definition and main function start) ...
+
+s1.rollNo = 101;
+s1.gpa = 8.5;
+
+// You can't use '=' for strings! You must use strcpy (string copy).
+strcpy(s1.name, "Binu");
+
+printf("Student's Name: %s\n", s1.name);
+printf("Student's GPA: %.1f\n", s1.gpa);</code></pre>
+          </div>
+        </article>
+
+        <article class="subblock">
+          <h3>Part 3: Array of Structures (The 'Shelf' for Bento Boxes)</h3>
+          <p>
+            What about 60 students? You don't make 60 different variables. You make an <strong>array</strong> <em>of</em> your new <code>Student</code> type.
+          </p>
+          <div class="analogy">
+            <div class="analogy-title">The Shelf Analogy</div>
+            <p>An array of structures is like a 'shelf' that holds 60 of your 'student bento boxes'.</p>
+          </div>
+          <div class="code-card">
+            <div class="code-title">Creating an Array of Structs</div>
+            <button class="copy-btn" aria-label="Copy code">Copy</button>
+            <pre class="line-numbers"><code class="language-c">// Create a 'shelf' that can hold 60 student structs
+struct Student cse_class[60];
+
+// Accessing the *first* student (at index 0)
+cse_class[0].rollNo = 1;
+strcpy(cse_class[0].name, "First Student");
+cse_class[0].gpa = 9.0;
+
+printf("The first student is: %s\n", cse_class[0].name);</code></pre>
+          </div>
+        </article>
+      </section>
+
+      <!-- Hour 3 -->
+      <section id="hour-3" class="block">
+        <h2>Hour 3: Pointers (The 'Most Feared' Topic)</h2>
+
+        <article class="subblock">
+          <h3>Part 1: The Concept - The 'House Address' Analogy</h3>
+          <div class="analogy">
+            <div class="analogy-title">The 'House Address' Analogy</div>
+            <p>This is the most important concept to understand.</p>
+            <ol>
+              <li>Every variable you create (like <code>int x = 10;</code>) is stored in a 'house' in the computer's memory.</li>
+              <li>That 'house' has a unique <strong>address</strong> (e.g., <code>4000</code>).</li>
+              <li>A <strong>Pointer</strong> is a special variable that doesn't store a <em>value</em> (like 10). It stores an <strong>address</strong> (like <code>4000</code>).</li>
+            </ol>
+            <p><strong>A pointer is just a variable that holds a memory address.</strong></p>
+          </div>
+        </article>
+
+        <article class="subblock">
+          <h3>Part 2: The Two Magic Operators: <code>&amp;</code> and <code>*</code></h3>
+          <h4>1. <code>&amp;</code> (The 'Address-Of' Operator)</h4>
+          <p>
+            Think of <code>&amp;</code> as <strong>'the address of'</strong>.
+            <br />
+            <em>x</em> is the value <em>inside</em> the house (10).
+            <br />
+            <em>&amp;x</em> is the <em>address</em> of the house (e.g., <code>4000</code>).
+          </p>
+          <h4>2. <code>*</code> (The 'Value-At-Address' Operator)</h4>
+          <p>
+            Think of <code>*</code> as <strong>'the value at'</strong>.
+            <br />
+            If <code>ptr</code> holds the address <code>4000</code>, then <code>*ptr</code> means: 'Go to address <code>4000</code> and get the <em>value</em> inside that house.' (which is 10).
+          </p>
+          <div class="code-card">
+            <div class="code-title">The 'Aha!' Moment Code</div>
+            <button class="copy-btn" aria-label="Copy code">Copy</button>
+            <pre class="line-numbers"><code class="language-c">int x = 10;      // A 'house' named 'x' with '10' inside.
+int *ptr;      // A pointer, ready to hold an address.
+
+ptr = &amp;x;      // Store the *address of x* in *ptr*.
+
+// --- Let's see what we have --- 
+printf("Value of x:     %d\n", x);     // Prints 10
+printf("Address of x:   %p\n", &amp;x);    // Prints the address (e.g., 4000)
+printf("Value in ptr:   %p\n", ptr);   // Prints the same address (e.g., 4000)
+printf("Value at *ptr:  %d\n", *ptr);  // Prints 10
+
+// --- Let's change x *using* the pointer --- 
+*ptr = 25;     // 'Go to the address in ptr, and put 25 in that house.'
+
+printf("New value of x: %d\n", x); // This will print 25!</code></pre>
+          </div>
+        </article>
+
+        <article class="subblock">
+          <h3>Part 3: The 'Why' - Why Pointers are SO Useful</h3>
+          <h4>Problem: Functions only get <em>copies</em> (Pass-by-Value).</h4>
+          <p>
+            Remember? If you send <code>x</code> to a function, it gets a <em>copy</em>. It can't change your original <code>x</code>. But what if you <em>want</em> it to? (Like a <code>swap</code> function).
+          </p>
+          <h4>Solution: Pass the <em>address</em> (Pass-by-Reference).</h4>
+          <p>
+            Instead of sending a <em>copy</em> of <code>x</code>, you send the <em>address</em> of <code>x</code> (using <code>&amp;x</code>). The function can then use a pointer (<code>*ptr</code>) to reach back into <code>main</code>'s 'house' and change your original variable.
+          </p>
+          <div class="callout success">
+            <div class="callout-title">The Mystery of <code>scanf</code> is Solved!</div>
+            <p>
+              This is <em>exactly</em> why <code>scanf</code> needs the <code>&amp;</code>!
+              When you write <code>scanf("%d", &amp;age);</code>, you are NOT passing the value of <code>age</code>. You ARE passing the <strong>address of the 'age' house</strong>.
+              <code>scanf</code> then uses a pointer to go to that <em>exact</em> address in memory and put the number you typed inside.
+            </p>
+          </div>
+        </article>
+      </section>
+
+      <!-- Conclusion -->
+      <section id="conclusion" class="block">
+        <h2>Class Summary &amp; What We Skipped</h2>
+        <div class="callout warning">
+          <div class="callout-title">Topics to AVOID (For Now!)</div>
+          <p>
+            The full syllabus for these modules is 16 hours! We skipped the hardest parts on purpose to build a strong foundation. Do not worry about these advanced topics until you master today's concepts.
+          </p>
+        </div>
+        <ul>
+          <li><strong>Module 3 Skipped:</strong> <code>Recursion</code> (Functions calling themselves), <code>Macros</code></li>
+          <li><strong>Module 4 Skipped:</strong> <code>Union</code>, <code>Pointer to Pointer</code>, <code>Array of Pointers</code>, <code>Pointer to Function</code>, <code>Dynamic Memory Allocation</code> (<code>malloc</code>, <code>free</code>)</li>
+        </ul>
+        <p>Congratulations! You now understand the core concepts of C's most powerful features.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>C Programming Workshop - Mar Athanasius College of Engineering</p>
+      </div>
+    </footer>
+
+    <!-- Prism core and plugins -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  <script>Prism.plugins.autoloader.languages_path = "https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/";</script>
+
+    <!-- Site script -->
+    <script src="./script.js"></script>
+  </body>
+  </html>
